@@ -1,0 +1,28 @@
+public class JavaVMMemOOM
+{
+    // -Xss2M
+    private void dontStop(){
+        while(true){
+
+        }
+    }
+    public void stackLeakByThread(){
+        while(true){
+            Thread thread=new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    dontStop();
+                }
+            });
+            thread.start();
+        }
+    }
+
+    public static void main(String[] args)
+    {
+        JavaVMMemOOM oom=new JavaVMMemOOM();
+        oom.stackLeakByThread();
+    }
+}
